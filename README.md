@@ -8,6 +8,7 @@ source my_environemnt_name/bin/activate
 pip install --upgrade pip
 pip install pydicom numpy pandas matplotlib scipy natsort
 
+
 README - REV analysis script
 Main target: Examines how measurement scale affects average signal in a single MRI slice of a horizontally oriented sand pack with 100% water-saturated pores. Input is a folder of DICOM images (.dcm). The script loads the series, selects the middle slice, reads pixel/voxel spacing from metadata to work in millimeters, and applies a light 3×3 median filter to reduce reconstruction noise.
 Workflow: ROI definition is performed interactively with a polygon tool. The mask bounding box is recorded and the slice is cropped so calculations remain within the sand pack. The cropped ROI is then tiled with progressively larger grids. For each grid, cell means are computed using only pixels at or above a configurable noise threshold. Then cell means are averaged to give one value per grid size. Converting cell dimensions from voxels to millimeters allows plotting mean grid intensity versus geometric mean cell size, yielding an REV/REA curve that typically stabilizes at representative scale.
@@ -20,7 +21,8 @@ README  - T1 analysis script
 Main target. Estimates T1 in sand-pack MRI where pores may be 100% brine-saturated or contain both brine and hydrogen. Input is a root directory with systematically organized subfolders (each a time point for the same slice). A calibration reference.dcm is required and is placed in a root directory (e.g., .../testing/reference.dcm). The reference anchors intensity scaling and enables computation of water saturation (Sw) to contextualize T1 over time and saturation states.
 Workflow. ROIs are drawn once on the first image of the first folder (up to eight by default; adjustable) and then applied identically to all folders and the calibration reference. A 3×3 median filter reduces noise from image reconstruction (not always necessary). For each folder, DICOM files (images) are read, TR values extracted and sorted, and mean ROI signals measured per TR. The recovery T1 model is fit by non-linear least squares, providing T1 and uncertainty. Sw per ROI is computed as the ratio of the first-TR signal to the corresponding ROI mean on the calibration reference.
 Outputs. Per-folder T1 recovery plots (normalised signal vs TR), ROI overlays, and a summary figure of T1 vs time (hours) with error bars and initial Sw annotations. Each folder’s output/ contains figures (≈300 dpi) and an Excel workbook with TR–signal tables, ROI-level normalised signals, Saturation (Sw), and Metadata (TR, TE, imaging frequency, voxel size). ROI overlays for the first and reference images are also saved.
- 
+
+ 
 README — T2 analysis script
 Main target. Estimates T2 from multi-echo acquisitions in the same sand-pack context (100% brine or brine and hydrogen). Input is a root directory with systematically organized time-point subfolders, each holding a multi-echo DICOM series of the same slice. A calibration reference.dcm (e.g., .../testing/reference.dcm) in a root directory provides a stable baseline and supports Sw computation across conditions.
 Workflow. ROIs are defined once on the first folder’s image and propagated to all time points and the reference. After 3×3 median filtering, echo times (TE) are extracted and sorted; mean ROI signals are measured per TE. The decay T2  is fit by non-linear least squares to obtain T2 with uncertainty. Sw per ROI is calculated as the ratio of the first-echo signal to the corresponding ROI mean on the calibration reference.
