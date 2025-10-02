@@ -2,6 +2,10 @@
 This repository contains python scripts that were generated to read, filter, and extract both qualitative and quantitative information from the MRI images of the sand packs saturated with brine and hydrogen.
 It is based on sand packs measiring (32 mm x 106 mm) in diameter, horizontally oriented in a 4.7 Tesla MRI scanner. The sand packs are initailly saturated with brine and then drained with hydrogen. Hydrogen may be replaced with any other gas such as CO2 or N2. 
 
+
+CONTACT UNIVERSITY OF BERGEN, DEPARTMENT OF PHYSICS AND TECHNLOGY, NORWAY, FOR ACCESS TO THE ORIGINAL MRI DATASETS
+
+
 Key info: Before running any script, create a Python 3 environment, for example here named my_environemnt_name, and install the required packages, especially pydicom (plus numpy, pandas, matplotlib, scipy, among others and—where noted—natsort). Ensure input directories contain valid data with equal number of items (images) and no empty folders.
 python3 -m venv my_environemnt_name
 source my_environemnt_name/bin/activate
